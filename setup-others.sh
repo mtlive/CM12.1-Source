@@ -11,7 +11,7 @@ chmod a+x ~/bin/repo
 PATH="$(pwd)/bin:$PATH"
 source ~/.profile
 cd ~/android/lineage
-repo init --depth=0 -u git://github.com/LineageOS/android.git --quiet -b cm-12.1  <<!
+repo init --depth=1 -u git://github.com/LineageOS/android.git --quiet -b cm-12.1  <<!
 y
 y
 !
@@ -57,6 +57,9 @@ export TARGET_PREBUILT_KERNEL= device/samsung/ancora/prebuilt/zImage
 #svn export --force https://github.com/doadin/android_device_samsung_ancora_tmo/branches/cm-12.1_ion_pmem-libshim/libshims "device/samsung/ancora/libshims" 
 #svn export --force https://github.com/doadin/android_device_samsung_ancora_tmo/branches/cm-12.1_ion_pmem-libshim/camera "device/samsung/ancora/camera" 
 
+df -k .
+
+rm -R .repo
 df -k .
 
 tar cfJ - ~/android | split --bytes=2000MB - CM12.1.tar.gz.
