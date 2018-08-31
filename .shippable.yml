@@ -16,7 +16,9 @@ jdk:
 build:
   runtime:
     container: false
-    
+  cache: true
+  cache_dir_list: 
+    - ~/android
   ci:
 # Install dependencies
     - sudo add-apt-repository ppa:ubuntu-toolchain-r/test -y
