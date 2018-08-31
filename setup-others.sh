@@ -62,6 +62,6 @@ df -k .
 rm -R .repo
 df -k .
 
-tar cfJ - ~/android | split --bytes=2000MB - CM12.1.tar.gz.
+tar cfz - ~/android | split --bytes=2000MB - CM12.1.tar.gz.
 ls -l
 
