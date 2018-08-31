@@ -24,7 +24,6 @@ task:
 # getting UberTC
 #    - git clone  --depth=1 "https://bitbucket.org/matthewdalex/arm-eabi-7.x" "../arm-eabi-7.x"
 #    - export CROSS_COMPILE="$(pwd)/../arm-eabi-7.x/bin/arm-eabi-"
-    - ldconfig
     - export ARCH=arm && export SUBARCH=arm
     - export USE_CCACHE=1
     - ccache -M 1.2G
