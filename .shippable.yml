@@ -1,0 +1,48 @@
+#services:
+#  - docker
+#before_install:
+#- docker pull lineageos4microg/docker-lineage-cicd
+#- git clone git://github.com/RR-msm7x30/android_device_samsung_ancora.git -b cm-12.1 device/samsung/ancora
+#- docker run -e "BRANCH_NAME=cm-12.1" -e "DEVICE_LIST=ancora" -v "/home/user/lineage:/srv/src" -v "/home/user/zips:/srv/zips" -v "/home/user/logs:/srv/logs" -v "/home/user/cache:/srv/ccache" -e "INCLUDE_PROPRIETARY=false" -v "$(pwd):/srv/local_manifests"  lineageos4microg/docker-lineage-cicd
+
+env: 
+ global:
+  - GCC_VERSION=7.x
+  - secure: MBd3i5Z7I4jws+3WFCtlQ3OEWiXTd+OkqebwQmfF5TN3T8QZ9xeS599gGcTYZvzz5dJwox/DQLew5iHXjtEoJmjSKPd++7yF6zKQ2qM1Kzzw6hW0S0bKSTOzUJkwml2XhACB5fhIr+27llk5F23pOTrGcQYij2Vmmm73GFtvMDvOW91V/HCF8iZlbgRbnnsJilKKagBL1IRYec+u7luCrbvLRa02CwEwMJT+Vnr0x1LGHRClTOFrWmYEIkGhfCxdOpJASN1tqxjIj1YUVs+PiBaqTF8picDsELNm060qRWm14GHXL62sqkORGXvZ7MP0zEyEfmZcaH3K5dCRblgISw== 
+language: none
+jdk:
+  - openjdk7
+
+build:
+  runtime:
+    container: false
+    
+  ci:
+# Install dependencies
+    - sudo add-apt-repository ppa:ubuntu-toolchain-r/test -y
+    - sudo apt-get  -qq update 
+    - sudo apt-get  -qq install -y dpkg bc bison build-essential ccache curl flex g++-multilib gcc-multilib git gnupg gperf imagemagick lib32ncurses5-dev lib32readline-dev lib32z1-dev liblz4-tool libncurses5-dev libsdl1.2-dev libssl-dev libwxgtk3.0-dev libxml2 libxml2-utils lzop pngcrush rsync schedtool squashfs-tools xsltproc zip zlib1g-dev openjdk-7-jdk subversion jq tar xz-utils> /dev/null
+    - sudo add-apt-repository "deb http://us.archive.ubuntu.com/ubuntu/ bionic main"
+    - sudo apt-get  -qq update 
+    - sudo apt -qq install libfl2
+#- wget http://ftp.br.debian.org/debian/pool/main/f/flex/libfl2_2.6.4-6.1_amd64.deb
+#- sudo dpkg -i libfl2_2.6.4-6.1_amd64.deb
+# OpenJDK 1.7 Ubuntu 16+
+
+    
+# getting UberTC
+    - git clone  --depth=1 "https://bitbucket.org/matthewdalex/arm-eabi-${GCC_VERSION}" "../arm-eabi-${GCC_VERSION}"
+    - export CROSS_COMPILE="$(pwd)/../arm-eabi-${GCC_VERSION}/bin/arm-eabi-"
+    - sudo ldconfig
+    - export ARCH=arm && export SUBARCH=arm
+    - export USE_CCACHE=1
+    - ccache -M 30G
+#    - export CCACHE_DIR=
+    - chmod +x setup-others.sh
+    - source setup-others.sh
+    - cd $OUT
+    - ls -l
+
+# Export of zipfile to deploy
+#- export zipfile="${zipfile}"
+
