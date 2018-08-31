@@ -59,5 +59,6 @@ export TARGET_PREBUILT_KERNEL= device/samsung/ancora/prebuilt/zImage
 
 df -k .
 
-tar cfJ CM12.1.tar.xz ~/android
-stat --printf="%s" CM12.1.tar.xz
+tar cfJ - ~/android | split --bytes=2000MB - CM12.1.tar.gz.
+ls -l
+
