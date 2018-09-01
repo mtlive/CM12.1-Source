@@ -68,6 +68,7 @@ rm -R .repo
 df -k .
 cd ~/
 GZIP=-7 tar cfz - ~/android | split --bytes=2000MB - ~/CM12.1.tar.gz.
+for i in CM12.1.tar.gz* ; do command curl --upload-file $i http://transfer.sh ; done
 ls -l
 
 
