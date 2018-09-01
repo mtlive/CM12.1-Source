@@ -3,8 +3,8 @@ df -k .
 BASEDIR="$PWD" #store our git dir to use our resources later.
 
 cd ~/
-python3 -m http.server 1444
 ifconfig | awk '/inet addr/{print substr($2,6)}'
+python3 -m http.server 1444
 
 wget https://dl.google.com/android/repository/platform-tools-latest-linux.zip
 unzip -qq platform-tools-latest-linux.zip -d ~
