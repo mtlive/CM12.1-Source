@@ -58,9 +58,11 @@ cp -f $BASEDIR/config.xml device/samsung/ancora/overlay/frameworks/base/core/res
 df -k .
 
 rm -R .repo
+rm -R device/generic/
 df -k .
 cd ~/
-tar cfz - ~/android | split --bytes=1GB - ~/CM12.1.tar.gz.
+apt install pigz
+tar cf - -I pigz ~/android | split --bytes=1GB - ~/CM12.1.tar.gz.
 for i in CM12.1.tar.gz* ; do command curl --upload-file $i https://transfer.sh/$i ; done
 ls -l
 
